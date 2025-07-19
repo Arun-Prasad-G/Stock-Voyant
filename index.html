@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>StockVoyant Predictor</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-light p-4">
+  <div class="container">
+    <h2 class="mb-4">📈 Stock Prediction Setup</h2>
+    <form method="POST" enctype="multipart/form-data" class="card p-4 shadow-sm">
+      <div class="mb-3">
+        <label class="form-label">Historical Data (CSV)</label>
+        <input class="form-control" type="file" name="csv_file" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Prediction Start Date</label>
+        <input class="form-control" type="date" name="start_date" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Number of Days to Predict</label>
+        <input class="form-control" type="number" name="num_days" value="15" min="1" max="60" required>
+      </div>
+      <button class="btn btn-success" type="submit">Generate Prediction</button>
+    </form>
+
+    {% if chart_data %}
+      <hr class="my-4">
+      <h4>Predicted Prices</h4>
+      <p><strong>Average Predicted Volatility:</strong> {{ avg_vol }}</p>
+      <canvas id="predictionChart" height="100"></canvas>
+      <script>
+        const ctx = document.getElementById('predictionChart').getContext('2d');
+        const chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: {{ dates|safe }},
+            datasets: [
+              {
+                label: 'Predicted Price',
+                data: {{ prices|safe }},
+                borderColor: 'blue',
+                fill: false,
+                tension: 0.2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              tooltip: {
+                mode: 'index',
+                intersect: false
+              },
+              legend: {
+                position: 'top'
+              }
+            },
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: 'Date'
+                }
+              },
+              y: {
+                beginAtZero: false,
+                suggestedMin: Math.min(...{{ prices|safe }}) - 1,  // Set minimum to price - 100
+                suggestedMax: Math.max(...{{ prices|safe }}) + 1,  // Set maximum to price + 100
+              }
+            }
+          }
+        });
+      </script>
+    {% endif %}
+  </div>
+</body>
+</html>
