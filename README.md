@@ -1,6 +1,7 @@
 
 # 📈 Stock-Voyant
 
+AI-Based Stock Price & Volatility Predictor
 
 This project is a hybrid machine learning and deep learning web application designed to **predict future stock prices and volatility**. It uses historical stock data to train a **hybrid model** that combines LSTM (Long Short-Term Memory) neural networks and Random Forest regressors for more accurate forecasting.
 
