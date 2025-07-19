@@ -27,5 +27,5 @@ This project is a hybrid machine learning and deep learning web application desi
 
 ---
 
-## 📂 Project Structure
+
 
