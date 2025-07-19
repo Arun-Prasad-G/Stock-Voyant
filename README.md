@@ -24,8 +24,18 @@ This project is a hybrid machine learning and deep learning web application desi
 - **TensorFlow / Keras** – LSTM deep learning model
 - **Scikit-learn** – Random Forest and data scaling
 - **Flask** – Web framework for handling file uploads and predictions
+- **HTML/CSS**-Front end part 
 
 ---
 
+## 📊 Data Source
 
+> ✅ **Only stock data downloaded from the [NSE India website](https://www.nseindia.com/)** is supported.
+
+Please ensure your file follows the NSE format with the following columns:
+
+- `Date` (in dd-mm-yyyy or yyyy-mm-dd format)
+- `OPEN`
+- `HIGH`
+- `LOW`
 
